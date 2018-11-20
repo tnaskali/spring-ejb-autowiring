@@ -1,0 +1,9 @@
+# Output folders
+bin/
+target/
+
+# IDE files
+.classpath
+.project
+.settings/
+/.jqwik-database
