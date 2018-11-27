@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- Maven reactor POM for local builds and travis-ci. -->
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>li.naska.springejbautowiring</groupId>
+  <artifactId>spring-ejb-autowiring-reactor</artifactId>
+  <version>NONE</version>
+
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>.</module>
+    <module>spring-ejb-autowiring</module>
+  </modules>
+
+  <distributionManagement>
+    <repository>
+      <id>sonatype-nexus-staging</id>
+      <name>Nexus Release Repository</name>
+      <url>file:///tmp/auto_project_maven_fake_repo/</url>
+    </repository>
+    <snapshotRepository>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Nexus Snapshots</name>
+      <url>file:///tmp/auto_project_maven_fake_repo/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+</project>

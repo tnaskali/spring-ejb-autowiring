@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+  <jmxConfigurator />
+
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+      <layout class="ch.qos.logback.classic.PatternLayout">
+        <!-- Pas perf mais très précis -->
+        <Pattern>[%date] %-5level [%thread] [%-50.50(%class.%method:%line)] : %msg%n</Pattern>
+        <!-- Perf mais seulement la classe -->
+        <!-- <Pattern>[%date] %-5level [%thread] [%-50.50(%logger)] : %msg%n</Pattern> -->
+      </layout>
+    </encoder>
+  </appender>
+
+  <root level="WARN">
+    <appender-ref ref="console" />
+  </root>
+
+</configuration>

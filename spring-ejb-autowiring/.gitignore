@@ -1,0 +1,11 @@
+# Output folders
+/bin/
+/target/
+
+# IDE files
+.classpath
+.project
+/.settings
+
+# Code analysis configuration files
+.checkstyle
