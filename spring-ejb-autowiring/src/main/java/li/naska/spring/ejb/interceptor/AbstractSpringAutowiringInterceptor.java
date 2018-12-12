@@ -1,5 +1,6 @@
 package li.naska.spring.ejb.interceptor;
 
+import java.util.function.Function;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
 import javax.ejb.PostActivate;
@@ -20,7 +21,7 @@ public abstract class AbstractSpringAutowiringInterceptor {
   /**
    * Autowire the target bean after construction as well as after passivation.
    * 
-   * @param invocationContext the EJB3 invocation context
+   * @param invocationContext the EJB invocation context
    */
   @PostConstruct
   @PostActivate
@@ -50,7 +51,7 @@ public abstract class AbstractSpringAutowiringInterceptor {
 
   /**
    * Template method for configuring the {@link AutowiredAnnotationBeanPostProcessor} used for
-   * autowiring.
+   * autowiring the target bean.
    * 
    * @param processor the AutowiredAnnotationBeanPostProcessor to configure
    * @param target the target bean to autowire with this processor
@@ -59,13 +60,22 @@ public abstract class AbstractSpringAutowiringInterceptor {
       Object target) {}
 
   /**
+   * Determine the function used for obtaining the key for a given target bean.
+   * 
+   * @return the function mapping a bean instance to the corresponding key
+   */
+  protected Function<Object, String> getKeyFunction() {
+    return t -> t.getClass().getName();
+  }
+
+  /**
    * Determine the BeanFactory for autowiring the given target bean.
    * 
    * @param target the target bean to autowire
    * @return the BeanFactory to use for autowiring
    */
   protected BeanFactory getBeanFactory(Object target) {
-    return getApplicationContext(target.getClass().getName()).getAutowireCapableBeanFactory();
+    return getApplicationContext(getKeyFunction().apply(target)).getAutowireCapableBeanFactory();
   }
 
   /**
