@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.function.Consumer;
 import javax.ejb.EJBException;
 import javax.interceptor.InvocationContext;
+import li.naska.spring.ejb.AbstractSpringSingletonBean;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,6 +35,16 @@ public class AbstractSpringAutowiringInterceptorTest {
           @Override
           protected ApplicationContext getApplicationContext(String key) {
             return applicationContext;
+          }
+          
+          @Override
+          protected Class<?>[] getAnnotatedClasses() {
+            return null;
+          }
+          
+          @Override
+          protected AbstractSpringSingletonBean getSpringSingletonBean() {
+            return null;
           }
         };
 

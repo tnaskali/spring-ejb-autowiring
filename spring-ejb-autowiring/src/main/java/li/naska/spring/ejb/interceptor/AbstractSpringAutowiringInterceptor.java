@@ -1,10 +1,10 @@
 package li.naska.spring.ejb.interceptor;
 
-import java.util.function.Function;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
 import javax.ejb.PostActivate;
 import javax.interceptor.InvocationContext;
+import li.naska.spring.ejb.AbstractSpringSingletonBean;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.context.ApplicationContext;
@@ -45,7 +45,7 @@ public abstract class AbstractSpringAutowiringInterceptor {
   protected void doAutowireBean(Object target) {
     AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();
     configureBeanPostProcessor(bpp, target);
-    bpp.setBeanFactory(getBeanFactory(target));
+    bpp.setBeanFactory(getBeanFactory());
     bpp.processInjection(target);
   }
 
@@ -60,12 +60,14 @@ public abstract class AbstractSpringAutowiringInterceptor {
       Object target) {}
 
   /**
-   * Determine the function used for obtaining the key for a given target bean.
+   * Provides the key for accessing the Spring context. The default implementation is the
+   * interceptor's class name, which is the logical choice when the interceptor always provides the
+   * same configuration classes.
    * 
-   * @return the function mapping a bean instance to the corresponding key
+   * @return the key
    */
-  protected Function<Object, String> getKeyFunction() {
-    return t -> t.getClass().getName();
+  protected String getKey() {
+    return getClass().getName();
   }
 
   /**
@@ -74,18 +76,35 @@ public abstract class AbstractSpringAutowiringInterceptor {
    * @param target the target bean to autowire
    * @return the BeanFactory to use for autowiring
    */
-  protected BeanFactory getBeanFactory(Object target) {
-    return getApplicationContext(getKeyFunction().apply(target)).getAutowireCapableBeanFactory();
+  protected BeanFactory getBeanFactory() {
+    return getApplicationContext(getKey()).getAutowireCapableBeanFactory();
   }
 
   /**
-   * Template method used to determine the ApplicationContext to use for autowiring. The implementor
-   * is expected to return equivalent ApplicationContext instances every time it's being passed the
-   * same key.
+   * Retreives the ApplicationContext to use for autowiring. The implementor is expected to return
+   * equivalent ApplicationContext instances every time it's being passed the same key.
    * 
    * @param key the key identifying the ApplicationContext
    * @return the ApplicationContext corresponding to the given key
    */
-  protected abstract ApplicationContext getApplicationContext(String key);
+  protected ApplicationContext getApplicationContext(String key) {
+    return getSpringSingletonBean().getApplicationContext(key, getAnnotatedClasses());
+  }
+
+  /**
+   * Template method to provide a reference to the singleton Bean holding the Spring
+   * ApplicationContexts.
+   * 
+   * @return the Spring singleton bean
+   */
+  protected abstract AbstractSpringSingletonBean getSpringSingletonBean();
+
+  /**
+   * Template method to provide the Spring configuration classes used to build the
+   * ApplicationContext.
+   * 
+   * @return the Spring configuration classes
+   */
+  protected abstract Class<?>[] getAnnotatedClasses();
 
 }

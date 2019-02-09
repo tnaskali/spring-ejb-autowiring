@@ -1,8 +1,8 @@
 package li.naska.spring.ejb.test;
 
 import javax.ejb.EJB;
+import li.naska.spring.ejb.AbstractSpringSingletonBean;
 import li.naska.spring.ejb.interceptor.AbstractSpringAutowiringInterceptor;
-import org.springframework.context.ApplicationContext;
 
 public class FakeSpringAutowiringInterceptor extends AbstractSpringAutowiringInterceptor {
 
@@ -10,8 +10,13 @@ public class FakeSpringAutowiringInterceptor extends AbstractSpringAutowiringInt
   private FakeSpringSingletonBean singletonBean;
 
   @Override
-  protected ApplicationContext getApplicationContext(String key) {
-    return singletonBean.getApplicationContext(key, FakeConfiguration.class);
+  protected AbstractSpringSingletonBean getSpringSingletonBean() {
+    return singletonBean;
+  }
+
+  @Override
+  protected Class<?>[] getAnnotatedClasses() {
+    return new Class<?>[] { FakeConfiguration.class };
   }
 
 }
