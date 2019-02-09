@@ -6,7 +6,7 @@
 
   <groupId>li.naska.springejbautowiring</groupId>
   <artifactId>spring-ejb-autowiring-parent</artifactId>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.4-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Spring EJB autowiring (parent)</name>
