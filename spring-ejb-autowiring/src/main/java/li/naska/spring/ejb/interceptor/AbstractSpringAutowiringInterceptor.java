@@ -73,7 +73,6 @@ public abstract class AbstractSpringAutowiringInterceptor {
   /**
    * Determine the BeanFactory for autowiring the given target bean.
    * 
-   * @param target the target bean to autowire
    * @return the BeanFactory to use for autowiring
    */
   protected BeanFactory getBeanFactory() {
