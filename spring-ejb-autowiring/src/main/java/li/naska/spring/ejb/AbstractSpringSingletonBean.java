@@ -6,9 +6,7 @@ import java.util.Map.Entry;
 import java.util.WeakHashMap;
 import javax.annotation.PreDestroy;
 import li.naska.spring.ejb.interceptor.AbstractSpringAutowiringInterceptor;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * Abstract class to extend when implementing a {@link javax.ejb.Singleton} EJB responsible for
@@ -26,20 +24,23 @@ public abstract class AbstractSpringSingletonBean {
       new WeakHashMap<>();
 
   /**
-   * Retrieves an ApplicationContext, creating it beforehand if it not already present.
+   * Retrieves the ApplicationContext stored under the given key.
    * 
    * @param key the key identifying the ApplicationContext
-   * @param annotedClasses the spring configuration classes from which the ApplicationContext should
-   *        be created
    * @return the ApplicationContext stored under the given key
    */
-  public synchronized ApplicationContext getApplicationContext(String key,
-      Class<?>... annotedClasses) {
-    if (!applicationContextReferences.containsKey(key)) {
-      this.applicationContextReferences.put(key,
-          new AnnotationConfigApplicationContext(annotedClasses));
-    }
+  public ConfigurableApplicationContext getApplicationContext(String key) {
     return applicationContextReferences.get(key);
+  }
+
+  /**
+   * Stores an ApplicationContext under the provided key.
+   * 
+   * @param key the key identifying the ApplicationContext
+   * @param applicationContext the ApplicationContext to store
+   */
+  public void setApplicationContext(String key, ConfigurableApplicationContext applicationContext) {
+    this.applicationContextReferences.put(key, applicationContext);
   }
 
   @PreDestroy
