@@ -23,7 +23,7 @@
 
   <ciManagement>
     <system>Travis CI</system>
-    <url>https://travis-ci.com/tnaskali/spring-ejb-autowiring</url>
+    <url>https://travis-ci.org/tnaskali/spring-ejb-autowiring</url>
   </ciManagement>
 
   <distributionManagement>
