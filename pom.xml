@@ -6,7 +6,7 @@
 
   <groupId>li.naska.springejbautowiring</groupId>
   <artifactId>spring-ejb-autowiring-parent</artifactId>
-  <version>1.4-SNAPSHOT</version>
+  <version>1.4</version>
   <packaging>pom</packaging>
 
   <name>Spring EJB autowiring (parent)</name>
@@ -18,7 +18,7 @@
     <url>http://github.com/tnaskali/spring-ejb-autowiring</url>
     <connection>scm:git:git://github.com/tnaskali/spring-ejb-autowiring.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/tnaskali/spring-ejb-autowiring.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>1.4</tag>
   </scm>
 
   <ciManagement>
