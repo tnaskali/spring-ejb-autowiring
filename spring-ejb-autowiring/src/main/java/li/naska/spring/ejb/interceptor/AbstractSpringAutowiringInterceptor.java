@@ -8,6 +8,8 @@ import li.naska.spring.ejb.AbstractSpringSingletonBean;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * Adapted from {@code org.springframework.ejb.interceptor.SpringBeanAutowiringInterceptor}, which
@@ -87,7 +89,17 @@ public abstract class AbstractSpringAutowiringInterceptor {
    * @return the ApplicationContext corresponding to the given key
    */
   protected ApplicationContext getApplicationContext(String key) {
-    return getSpringSingletonBean().getApplicationContext(key, getAnnotatedClasses());
+    AbstractSpringSingletonBean springSingletonBean = getSpringSingletonBean();
+    synchronized (key.intern()) {
+      ConfigurableApplicationContext applicationContext = springSingletonBean.getApplicationContext(key);
+      if (applicationContext != null) {
+        return applicationContext;
+      } else {
+        applicationContext = new AnnotationConfigApplicationContext(getAnnotatedClasses());
+        springSingletonBean.setApplicationContext(key, applicationContext);
+        return applicationContext;
+      }
+    }
   }
 
   /**
