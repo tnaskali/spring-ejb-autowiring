@@ -92,13 +92,11 @@ public abstract class AbstractSpringAutowiringInterceptor {
     AbstractSpringSingletonBean springSingletonBean = getSpringSingletonBean();
     synchronized (key.intern()) {
       ConfigurableApplicationContext applicationContext = springSingletonBean.getApplicationContext(key);
-      if (applicationContext != null) {
-        return applicationContext;
-      } else {
+      if (applicationContext == null) {
         applicationContext = new AnnotationConfigApplicationContext(getAnnotatedClasses());
         springSingletonBean.setApplicationContext(key, applicationContext);
-        return applicationContext;
       }
+      return applicationContext;
     }
   }
 
