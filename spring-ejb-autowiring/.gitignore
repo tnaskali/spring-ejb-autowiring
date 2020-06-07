@@ -3,9 +3,8 @@
 /target/
 
 # IDE files
-.classpath
-.project
-/.settings
-
-# Code analysis configuration files
-.checkstyle
+/.idea/
+/*.iml
+/.classpath
+/.project
+/.settings/
