@@ -21,10 +21,10 @@
  */
 package li.naska.spring.ejb.interceptor;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.EJBException;
-import javax.ejb.PostActivate;
-import javax.interceptor.InvocationContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.ejb.EJBException;
+import jakarta.ejb.PostActivate;
+import jakarta.interceptor.InvocationContext;
 import li.naska.spring.ejb.AbstractSpringSingletonBean;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;

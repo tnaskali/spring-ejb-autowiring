@@ -21,7 +21,7 @@
  */
 package li.naska.spring.ejb.test;
 
-import javax.ejb.Singleton;
+import jakarta.ejb.Singleton;
 import li.naska.spring.ejb.AbstractSpringSingletonBean;
 
 @Singleton

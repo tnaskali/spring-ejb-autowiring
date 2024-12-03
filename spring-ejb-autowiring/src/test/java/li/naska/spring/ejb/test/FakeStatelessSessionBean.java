@@ -22,9 +22,9 @@
 package li.naska.spring.ejb.test;
 
 import java.time.LocalDateTime;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
-import javax.interceptor.Interceptors;
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
+import jakarta.interceptor.Interceptors;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Stateless

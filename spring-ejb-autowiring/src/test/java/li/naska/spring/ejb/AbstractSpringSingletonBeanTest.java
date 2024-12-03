@@ -35,12 +35,12 @@ public class AbstractSpringSingletonBeanTest {
   @Nested
   class given_a_singleton_bean {
 
-    private AbstractSpringSingletonBean underTest = new AbstractSpringSingletonBean() {};
+    private final AbstractSpringSingletonBean underTest = new AbstractSpringSingletonBean() {};
 
-    private AnnotationConfigApplicationContext anApplicationContext =
+    private final AnnotationConfigApplicationContext anApplicationContext =
         new AnnotationConfigApplicationContext(FakeConfiguration.class);
 
-    private AnnotationConfigApplicationContext anotherApplicationContext =
+    private final AnnotationConfigApplicationContext anotherApplicationContext =
         new AnnotationConfigApplicationContext(FakeConfiguration.class);
 
     {
@@ -51,15 +51,14 @@ public class AbstractSpringSingletonBeanTest {
     @Nested
     class when_asked_for_an_application_context {
 
-      private ApplicationContext result = underTest.getApplicationContext("aKey");
+      private final ApplicationContext result = underTest.getApplicationContext("aKey");
 
       @Test
       public void then_it_should_be_initialized() {
         assertThat(result).isNotNull();
         assertThat(result).isInstanceOf(AnnotationConfigApplicationContext.class);
         assertThat(((AnnotationConfigApplicationContext) result).isActive()).isTrue();
-        assertThat(((AnnotationConfigApplicationContext) result).getBean(LocalDateTime.class))
-            .isNotNull();
+        assertThat(result.getBean(LocalDateTime.class)).isNotNull();
       }
 
       @Nested
@@ -76,9 +75,9 @@ public class AbstractSpringSingletonBeanTest {
     @Nested
     class when_asked_for_an_application_context_using_the_same_key_twice {
 
-      private ApplicationContext first = underTest.getApplicationContext("aKey");
+      private final ApplicationContext first = underTest.getApplicationContext("aKey");
 
-      private ApplicationContext second = underTest.getApplicationContext("aKey");
+      private final ApplicationContext second = underTest.getApplicationContext("aKey");
 
       @Test
       public void then_both_should_be_the_same() {
@@ -89,9 +88,9 @@ public class AbstractSpringSingletonBeanTest {
     @Nested
     class when_asked_for_an_application_context_using_different_keys {
 
-      private ApplicationContext first = underTest.getApplicationContext("aKey");
+      private final ApplicationContext first = underTest.getApplicationContext("aKey");
 
-      private ApplicationContext second = underTest.getApplicationContext("anotherKey");
+      private final ApplicationContext second = underTest.getApplicationContext("anotherKey");
 
       @Test
       public void then_both_should_be_different() {

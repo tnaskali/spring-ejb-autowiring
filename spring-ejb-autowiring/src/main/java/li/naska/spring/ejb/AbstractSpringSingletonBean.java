@@ -25,16 +25,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.WeakHashMap;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import li.naska.spring.ejb.interceptor.AbstractSpringAutowiringInterceptor;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
- * Abstract class to extend when implementing a {@link javax.ejb.Singleton} EJB responsible for
+ * Abstract class to extend when implementing a {@link jakarta.ejb.Singleton} EJB responsible for
  * holding the shared Spring ConfigurableApplicationContext instances (one instance per bean type).
  * <br>
  * Access it from an implementation of {@link AbstractSpringAutowiringInterceptor} after injecting
- * it using {@link javax.ejb.EJB}.
+ * it using {@link jakarta.ejb.EJB}.
  */
 public abstract class AbstractSpringSingletonBean {
 

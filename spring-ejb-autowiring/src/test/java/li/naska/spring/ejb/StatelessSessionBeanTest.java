@@ -26,37 +26,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.embeddable.EJBContainer;
+
+import jakarta.ejb.embeddable.EJBContainer;
 import javax.naming.NamingException;
 import li.naska.spring.ejb.test.FakeStatelessSessionBean;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 
 public class StatelessSessionBeanTest {
-
-  @BeforeAll
-  public static void setupLogger() {
-    SLF4JBridgeHandler.removeHandlersForRootLogger();
-    SLF4JBridgeHandler.install();
-    Logger.getLogger("").setLevel(Level.INFO);
-  }
 
   @Nested
   class given_a_deployed_environment {
 
-    private EJBContainer ejbContainer = mountContainer();
+    private final EJBContainer ejbContainer = mountContainer();
 
     @Nested
     class when_looking_up_a_stateless_session_bean {
 
-      private FakeStatelessSessionBean stateless = lookupSessionBean();
+      private final FakeStatelessSessionBean stateless = lookupSessionBean();
 
       @Test
-      public void then_it_should_be_autowired() throws NamingException {
+      public void then_it_should_be_autowired() {
         assertThat(stateless).isNotNull();
         assertThat(stateless.getAutowired()).isNotNull();
       }

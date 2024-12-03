@@ -21,7 +21,7 @@
  */
 package li.naska.spring.ejb.test;
 
-import javax.ejb.EJB;
+import jakarta.ejb.EJB;
 import li.naska.spring.ejb.AbstractSpringSingletonBean;
 import li.naska.spring.ejb.interceptor.AbstractSpringAutowiringInterceptor;
 

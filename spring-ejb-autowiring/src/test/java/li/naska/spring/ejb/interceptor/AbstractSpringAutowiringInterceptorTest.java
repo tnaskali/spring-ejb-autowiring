@@ -21,15 +21,14 @@
  */
 package li.naska.spring.ejb.interceptor;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.function.Consumer;
-import javax.ejb.EJBException;
-import javax.interceptor.InvocationContext;
+import jakarta.ejb.EJBException;
+import jakarta.interceptor.InvocationContext;
 import li.naska.spring.ejb.AbstractSpringSingletonBean;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -51,7 +50,7 @@ public class AbstractSpringAutowiringInterceptorTest {
     @Mock
     private ApplicationContext applicationContext;
 
-    private AbstractSpringAutowiringInterceptor underTest =
+    private final AbstractSpringAutowiringInterceptor underTest =
         new AbstractSpringAutowiringInterceptor() {
           @Override
           protected ApplicationContext getApplicationContext(String key) {
@@ -72,7 +71,7 @@ public class AbstractSpringAutowiringInterceptorTest {
     @Nested
     class when_autowiring {
 
-      private Consumer<InvocationContext> method = ic -> underTest.autowireBean(ic);
+      private final Consumer<InvocationContext> method = underTest::autowireBean;
 
       @Test
       public void given_invocation_succeeds_then_proceed() throws Exception {
@@ -95,14 +94,8 @@ public class AbstractSpringAutowiringInterceptorTest {
         when(applicationContext.getAutowireCapableBeanFactory()).thenReturn(beanFactory);
         when(invocationContext.getTarget()).thenReturn(underTest);
         when(invocationContext.proceed()).thenThrow(exception);
-        // WHEN
-        try {
-          method.accept(invocationContext);
-          fail("exception expected but not thrown");
-        } catch (EJBException e) {
-          // THEN
-          assertThat(e.getCause()).isEqualTo(exception);
-        }
+        // THEN
+        assertThatThrownBy(() -> method.accept(invocationContext)).isInstanceOf(EJBException.class).cause().isEqualTo(exception);
       }
 
       @Test
@@ -113,14 +106,8 @@ public class AbstractSpringAutowiringInterceptorTest {
         when(applicationContext.getAutowireCapableBeanFactory()).thenReturn(beanFactory);
         when(invocationContext.getTarget()).thenReturn(underTest);
         when(invocationContext.proceed()).thenThrow(exception);
-        // WHEN
-        try {
-          method.accept(invocationContext);
-          fail("exception expected but not thrown");
-        } catch (RuntimeException e) {
-          // THEN
-          assertThat(e).isEqualTo(exception);
-        }
+        // THEN
+        assertThatThrownBy(() -> method.accept(invocationContext)).isEqualTo(exception);
       }
     }
   }
