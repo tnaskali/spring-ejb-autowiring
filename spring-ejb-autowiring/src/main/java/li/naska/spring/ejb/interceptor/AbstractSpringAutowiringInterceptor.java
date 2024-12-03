@@ -103,7 +103,7 @@ public abstract class AbstractSpringAutowiringInterceptor {
   }
 
   /**
-   * Retreives the ApplicationContext to use for autowiring. The implementor is expected to return
+   * Retrieves the ApplicationContext to use for autowiring. The implementor is expected to return
    * equivalent ApplicationContext instances every time it's being passed the same key.
    * 
    * @param key the key identifying the ApplicationContext
