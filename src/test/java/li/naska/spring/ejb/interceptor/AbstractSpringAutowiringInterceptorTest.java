@@ -74,7 +74,7 @@ public class AbstractSpringAutowiringInterceptorTest {
       private final Consumer<InvocationContext> method = underTest::autowireBean;
 
       @Test
-      public void given_invocation_succeeds_then_proceed() throws Exception {
+      void given_invocation_succeeds_then_proceed() throws Exception {
         // GIVEN
         InvocationContext invocationContext = mock(InvocationContext.class);
         when(applicationContext.getAutowireCapableBeanFactory()).thenReturn(beanFactory);
@@ -86,8 +86,7 @@ public class AbstractSpringAutowiringInterceptorTest {
       }
 
       @Test
-      public void given_checked_exception_is_thrown_then_wrap_it_in_an_ejb_exception()
-          throws Exception {
+      void given_checked_exception_is_thrown_then_wrap_it_in_an_ejb_exception() throws Exception {
         InvocationContext invocationContext = mock(InvocationContext.class);
         Exception exception = new Exception();
         // GIVEN
@@ -102,7 +101,7 @@ public class AbstractSpringAutowiringInterceptorTest {
       }
 
       @Test
-      public void given_runtime_exception_is_thrown_then_propagate() throws Exception {
+      void given_runtime_exception_is_thrown_then_propagate() throws Exception {
         InvocationContext invocationContext = mock(InvocationContext.class);
         RuntimeException exception = new RuntimeException();
         // GIVEN

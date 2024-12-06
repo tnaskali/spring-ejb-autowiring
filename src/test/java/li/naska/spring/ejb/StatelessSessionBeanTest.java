@@ -45,7 +45,7 @@ public class StatelessSessionBeanTest {
       private final FakeStatelessSessionBean stateless = lookupSessionBean();
 
       @Test
-      public void then_it_should_be_autowired() {
+      void then_it_should_be_autowired() {
         assertThat(stateless).isNotNull();
         assertThat(stateless.getAutowired()).isNotNull();
       }

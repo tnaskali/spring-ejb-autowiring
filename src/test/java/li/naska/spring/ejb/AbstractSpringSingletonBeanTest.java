@@ -54,9 +54,8 @@ public class AbstractSpringSingletonBeanTest {
       private final ApplicationContext result = underTest.getApplicationContext("aKey");
 
       @Test
-      public void then_it_should_be_initialized() {
-        assertThat(result).isNotNull();
-        assertThat(result).isInstanceOf(AnnotationConfigApplicationContext.class);
+      void then_it_should_be_initialized() {
+        assertThat(result).isNotNull().isInstanceOf(AnnotationConfigApplicationContext.class);
         assertThat(((AnnotationConfigApplicationContext) result).isActive()).isTrue();
         assertThat(result.getBean(LocalDateTime.class)).isNotNull();
       }
@@ -65,7 +64,7 @@ public class AbstractSpringSingletonBeanTest {
       class when_later_it_is_released {
 
         @Test
-        public void then_it_should_be_closed() {
+        void then_it_should_be_closed() {
           underTest.doReleaseBean();
           assertThat(anApplicationContext.isActive()).isFalse();
         }
@@ -80,7 +79,7 @@ public class AbstractSpringSingletonBeanTest {
       private final ApplicationContext second = underTest.getApplicationContext("aKey");
 
       @Test
-      public void then_both_should_be_the_same() {
+      void then_both_should_be_the_same() {
         assertThat(first).isSameAs(second);
       }
     }
@@ -93,7 +92,7 @@ public class AbstractSpringSingletonBeanTest {
       private final ApplicationContext second = underTest.getApplicationContext("anotherKey");
 
       @Test
-      public void then_both_should_be_different() {
+      void then_both_should_be_different() {
         assertThat(first).isNotSameAs(second);
       }
     }
