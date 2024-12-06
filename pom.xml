@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.4.0</version>
+    <relativePath/>
+  </parent>
 
   <groupId>li.naska.springejbautowiring</groupId>
   <artifactId>spring-ejb-autowiring</artifactId>
@@ -13,17 +19,10 @@
   <url>https://github.com/tnaskali/spring-ejb-autowiring</url>
   <inceptionYear>2019</inceptionYear>
 
-  <scm>
-    <url>https://github.com/tnaskali/spring-ejb-autowiring</url>
-    <connection>scm:git:git://github.com/tnaskali/spring-ejb-autowiring.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/tnaskali/spring-ejb-autowiring.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
-
-  <issueManagement>
-    <system>GitHub Issues</system>
-    <url>https://github.com/tnaskali/spring-ejb-autowiring/issues</url>
-  </issueManagement>
+  <organization>
+    <name>Thomas Naskali</name>
+    <url>www.naska.li</url>
+  </organization>
 
   <licenses>
     <license>
@@ -32,56 +31,48 @@
     </license>
   </licenses>
 
-  <organization>
-    <url>www.naska.li</url>
-    <name>Thomas Naskali</name>
-  </organization>
-
   <developers>
     <developer>
+      <id>tnaskali</id>
       <name>Thomas Naskali</name>
       <email>thomas@naska.li</email>
-      <id>tnaskali</id>
       <url>https://github.com/tnaskali</url>
     </developer>
   </developers>
 
+  <scm>
+    <connection>scm:git:git://github.com/tnaskali/spring-ejb-autowiring.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/tnaskali/spring-ejb-autowiring.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>https://github.com/tnaskali/spring-ejb-autowiring</url>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/tnaskali/spring-ejb-autowiring/issues</url>
+  </issueManagement>
+
   <distributionManagement>
-    <snapshotRepository>
-      <id>oss-snapshots</id>
-      <name>Sonatype OSS Snapshots Repository</name>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
     <repository>
       <id>oss-release</id>
       <name>Sonatype OSS Release Repository</name>
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
+    <snapshotRepository>
+      <id>oss-snapshots</id>
+      <name>Sonatype OSS Snapshots Repository</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>17</java.version>
-    <!-- maven plugins -->
-    <maven.clean.version>3.4.0</maven.clean.version>
-    <maven.compiler.version>3.13.0</maven.compiler.version>
-    <maven.failsafe.version>3.5.2</maven.failsafe.version>
-    <maven.gpg.version>3.2.7</maven.gpg.version>
-    <maven.jar.version>3.4.2</maven.jar.version>
-    <maven.javadoc.version>3.11.1</maven.javadoc.version>
-    <maven.nexus.staging.version>1.7.0</maven.nexus.staging.version>
-    <maven.release.version>3.1.1</maven.release.version>
-    <maven.resources.version>3.3.1</maven.resources.version>
-    <maven.source.version>3.3.1</maven.source.version>
-    <maven.surefire.version>3.5.2</maven.surefire.version>
-    <!-- dependencies -->
-    <assertj.version>3.26.3</assertj.version>
-    <checkstyle.version>10.20.2</checkstyle.version>
     <glassfish.version>7.0.20</glassfish.version>
     <jakartaee-api.version>10.0.0</jakartaee-api.version>
-    <junit.jupiter.version>5.11.3</junit.jupiter.version>
-    <mockito.version>5.14.2</mockito.version>
-    <spring.version>6.2.0</spring.version>
+    <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml,${project.basedir}/target/site/jacoco-it/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.junit.reportPaths>${project.basedir}/target/surefire-reports/,${project.basedir}/target/failsafe-reports/</sonar.junit.reportPaths>
   </properties>
 
   <dependencyManagement>
@@ -96,33 +87,6 @@
         <groupId>org.glassfish.main.extras</groupId>
         <artifactId>glassfish-embedded-all</artifactId>
         <version>${glassfish.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-beans</artifactId>
-        <version>${spring.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-context</artifactId>
-        <version>${spring.version}</version>
-      </dependency>
-
-      <!-- test dependencies -->
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter</artifactId>
-        <version>${junit.jupiter.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-junit-jupiter</artifactId>
-        <version>${mockito.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.assertj</groupId>
-        <artifactId>assertj-core</artifactId>
-        <version>${assertj.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -169,14 +133,30 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>com.diffplug.spotless</groupId>
+          <artifactId>spotless-maven-plugin</artifactId>
+          <version>2.43.0</version>
+          <configuration>
+            <java>
+              <palantirJavaFormat>
+                <version>2.50.0</version>
+                <style>GOOGLE</style>
+              </palantirJavaFormat>
+            </java>
+            <pom>
+              <sortPom>
+                <expandEmptyElements>false</expandEmptyElements>
+              </sortPom>
+            </pom>
+          </configuration>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
-          <version>${maven.clean.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>${maven.compiler.version}</version>
           <configuration>
             <source>${java.version}</source>
             <target>${java.version}</target>
@@ -185,7 +165,6 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>${maven.failsafe.version}</version>
           <executions>
             <execution>
               <goals>
@@ -198,12 +177,10 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>${maven.jar.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>${maven.javadoc.version}</version>
           <executions>
             <execution>
               <id>attach-javadocs</id>
@@ -216,21 +193,19 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-gpg-plugin</artifactId>
-          <version>${maven.gpg.version}</version>
           <executions>
             <execution>
               <id>sign-artifacts</id>
-              <phase>verify</phase>
               <goals>
                 <goal>sign</goal>
               </goals>
+              <phase>verify</phase>
             </execution>
           </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
-          <version>${maven.release.version}</version>
           <configuration>
             <autoVersionSubmodules>true</autoVersionSubmodules>
             <useReleaseProfile>false</useReleaseProfile>
@@ -241,12 +216,10 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>${maven.resources.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
-          <version>${maven.source.version}</version>
           <executions>
             <execution>
               <id>attach-sources</id>
@@ -259,17 +232,13 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>${maven.surefire.version}</version>
           <configuration>
-            <argLine>
-              --add-opens java.base/java.lang=ALL-UNNAMED
-            </argLine>
+            <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
           </configuration>
         </plugin>
         <plugin>
           <groupId>org.sonatype.plugins</groupId>
           <artifactId>nexus-staging-maven-plugin</artifactId>
-          <version>${maven.nexus.staging.version}</version>
           <extensions>true</extensions>
           <configuration>
             <serverId>oss-release</serverId>
@@ -277,8 +246,71 @@
             <autoReleaseAfterClose>true</autoReleaseAfterClose>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.12</version>
+          <executions>
+            <execution>
+              <id>prepare-surefire</id>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report-surefire</id>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>prepare-failsafe</id>
+              <goals>
+                <goal>prepare-agent-integration</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>report-failsafe</id>
+              <goals>
+                <goal>report-integration</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>5.0.0.4389</version>
+        </plugin>
       </plugins>
     </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jaxb2-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.graalvm.buildtools</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
   </build>
 
   <profiles>

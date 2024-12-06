@@ -7,10 +7,10 @@
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,9 +26,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.function.Consumer;
 import jakarta.ejb.EJBException;
 import jakarta.interceptor.InvocationContext;
+import java.util.function.Consumer;
 import li.naska.spring.ejb.AbstractSpringSingletonBean;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -56,12 +56,12 @@ public class AbstractSpringAutowiringInterceptorTest {
           protected ApplicationContext getApplicationContext(String key) {
             return applicationContext;
           }
-          
+
           @Override
           protected Class<?>[] getAnnotatedClasses() {
             return null;
           }
-          
+
           @Override
           protected AbstractSpringSingletonBean getSpringSingletonBean() {
             return null;
@@ -95,7 +95,10 @@ public class AbstractSpringAutowiringInterceptorTest {
         when(invocationContext.getTarget()).thenReturn(underTest);
         when(invocationContext.proceed()).thenThrow(exception);
         // THEN
-        assertThatThrownBy(() -> method.accept(invocationContext)).isInstanceOf(EJBException.class).cause().isEqualTo(exception);
+        assertThatThrownBy(() -> method.accept(invocationContext))
+            .isInstanceOf(EJBException.class)
+            .cause()
+            .isEqualTo(exception);
       }
 
       @Test
