@@ -1,1 +1,1 @@
-mvn clean deploy -f reactor-pom.xml -Pactual-release
+mvn clean deploy -Pactual-release
